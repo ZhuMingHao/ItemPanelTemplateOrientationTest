@@ -1,0 +1,109 @@
+﻿<Page
+    x:Class="ItemPanelTemplateOrientationTest.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ItemPanelTemplateOrientationTest"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="SidePaneTemplate">
+            <UserControl>
+                <UserControl.Resources>
+                    <ItemsPanelTemplate x:Key="HorizontalStackPanel">
+                        <ItemsStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+
+                    <ItemsPanelTemplate x:Key="VerticalStackPanel">
+                        <ItemsStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </UserControl.Resources>
+                <ListView
+                    x:Name="rootview"
+                    Margin="0,10,0,0"
+                    SelectedIndex="{Binding CurrentSelectedPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="ListView_SelectionChanged"
+                    SelectionMode="Single" >
+                    <ListView.Items>
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon
+                                    Margin="5"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="{StaticResource ComboBoxArrowThemeFontSize}"
+                                    Glyph="&#xE8B2;"/>
+                                <TextBlock Text="Movies" TextAlignment="Center" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon
+                                    Margin="5"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="{StaticResource ComboBoxArrowThemeFontSize}"
+                                    Glyph="&#xE7F4;"/>
+                                <TextBlock Text="TV Shows" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon
+                                    Margin="5"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="{StaticResource ComboBoxArrowThemeFontSize}"
+                                    Glyph="&#xE721;" />
+                                <TextBlock Text="Search" TextAlignment="DetectFromContent" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon
+                                    Margin="5"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="{StaticResource ComboBoxArrowThemeFontSize}"
+                                    Glyph="&#xE728;" />
+                                <TextBlock Text="Favorites"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon
+                                    Margin="5"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="{StaticResource ComboBoxArrowThemeFontSize}"
+                                    Glyph="&#xE713;" />
+                                <TextBlock Text="Settings" />
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView.Items>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState x:Name="w_state">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger  MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="rootview.ItemsPanel" Value="{StaticResource VerticalStackPanel}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="n_state">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="700" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="rootview.ItemsPanel" Value="{StaticResource  HorizontalStackPanel}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </ListView>
+            </UserControl>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Viewbox x:Name="TopPane"
+             MaxHeight="50">
+            <ContentPresenter ContentTemplate="{StaticResource SidePaneTemplate}"/>
+        </Viewbox>
+    </Grid>
+</Page>
